@@ -1,5 +1,7 @@
 package u04lab.code
-import List.*
+import u04lab.code.List.*
+
+import scala.::
 trait Item {
   def code: Int
   def name: String
@@ -48,20 +50,35 @@ trait Warehouse {
   def contains(itemCode: Int): Boolean
 }
 
+case class WarehouseImpl() extends Warehouse:
+  var items: List[Item] = empty
+  override def store(item: Item): Unit = items = cons(item, items)
+
+  override def contains(itemCode: Int): Boolean = List.contains(List.map(items)(_.code), itemCode)
+
+
+  override def remove(item: Item): Unit = ???
+
+  override def retrieve(code: Int): Option[Item] = ???
+
+  override def searchItems(tag: String): List[Item] = ???
+
+
 object Warehouse {
-  def apply(): Warehouse = ???
+  def apply(): Warehouse = new WarehouseImpl
 }
 
 @main def mainWarehouse(): Unit =
-  //val warehouse = Warehouse()
+  val warehouse = Warehouse()
 
   val dellXps = Item(33, "Dell XPS 15", cons("notebook", empty))
   val dellInspiron = Item(34, "Dell Inspiron 13", cons("notebook", empty))
   val xiaomiMoped = Item(35, "Xiaomi S1", cons("moped", cons("mobility", empty)))
+
+  println(warehouse.contains(dellXps.code)) // false
+  println(warehouse.store(dellXps)) // side effect, add dell xps to the warehouse
+  println(warehouse.contains(dellXps.code)) // true
 /*
-  warehouse.contains(dellXps.code) // false
-  warehouse.store(dellXps) // side effect, add dell xps to the warehouse
-  warehouse.contains(dellXps.code) // true
   warehouse.store(dellInspiron) // side effect, add dell inspiron to the warehouse
   warehouse.store(xiaomiMoped) // side effect, add xiaomi moped to the warehouse
   warehouse.searchItems("mobility") // List(xiaomiMoped)
