@@ -53,9 +53,9 @@ case class WarehouseImpl() extends Warehouse:
 
 
   override def store(item: Item): Unit = list = append(list, cons(item, empty))
-  override def searchItems(tag: String): List[Item] = ???
-  override def retrieve(code: Int): Option[Item] = ???
-  override def remove(item: Item): Unit = ???
+  override def searchItems(tag: String): List[Item] = filter(list)(i => List.contains(i.tags,tag))
+  override def retrieve(code: Int): Option[Item] = find(list)(i => i.code==code)
+  override def remove(item: Item): Unit = list = List.remove(list)(i => i==item)
   override def contains(itemCode: Int): Boolean = List.contains(map(list)(i => i.code), itemCode)
 
 object Warehouse {
@@ -74,14 +74,13 @@ object Warehouse {
   println(warehouse.contains(dellXps.code)) // true
   println(warehouse.store(dellInspiron)) // side effect, add dell inspiron to the warehouse
   println(warehouse.store(xiaomiMoped)) // side effect, add xiaomi moped to the warehouse
-  /*
-  warehouse.searchItems("mobility") // List(xiaomiMoped)
-  warehouse.searchItems("notebook") // List(dellXps, dellInspiron)
-  warehouse.retrieve(11) // None
-  warehouse.retrieve(dellXps.code) // Some(dellXps)
-  warehouse.remove(dellXps) // side effect, remove dell xps from the warehouse
-  warehouse.retrieve(dellXps.code) // None
-*/
+  println(warehouse.searchItems("mobility")) // List(xiaomiMoped)
+  println(warehouse.searchItems("notebook")) // List(dellXps, dellInspiron)
+  println(warehouse.retrieve(11)) // None
+  println(warehouse.retrieve(dellXps.code)) // Some(dellXps)
+  println(warehouse.remove(dellXps)) // side effect, remove dell xps from the warehouse
+  println(warehouse.retrieve(dellXps.code)) // None
+
 /** Hints:
  * - Implement the Item with a simple case class
  * - Implement the Warehouse keeping a private List of items
