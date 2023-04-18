@@ -6,8 +6,13 @@ trait Item {
   def tags: List[String]
 }
 
+case class ItemImpl(override val code:Int,
+                    override val name:String,
+                   override val tags:List[String]) extends Item
+
 object Item:
-  def apply(code: Int, name: String, tags: List[String] = List.empty): Item = ???
+  def apply(code: Int, name: String, tags: List[String] = List.empty): Item =
+    ItemImpl(code, name, tags)
 
 /**
  * A warehouse is a place where items are stored.
@@ -48,12 +53,12 @@ object Warehouse {
 }
 
 @main def mainWarehouse(): Unit =
-  val warehouse = Warehouse()
+  //val warehouse = Warehouse()
 
   val dellXps = Item(33, "Dell XPS 15", cons("notebook", empty))
   val dellInspiron = Item(34, "Dell Inspiron 13", cons("notebook", empty))
   val xiaomiMoped = Item(35, "Xiaomi S1", cons("moped", cons("mobility", empty)))
-
+/*
   warehouse.contains(dellXps.code) // false
   warehouse.store(dellXps) // side effect, add dell xps to the warehouse
   warehouse.contains(dellXps.code) // true
@@ -65,7 +70,7 @@ object Warehouse {
   warehouse.retrieve(dellXps.code) // Some(dellXps)
   warehouse.remove(dellXps) // side effect, remove dell xps from the warehouse
   warehouse.retrieve(dellXps.code) // None
-
+*/
 /** Hints:
  * - Implement the Item with a simple case class
  * - Implement the Warehouse keeping a private List of items
