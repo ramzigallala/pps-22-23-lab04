@@ -93,7 +93,7 @@ object Warehouse {
   println(warehouse.store(dellXps)) // side effect, add dell xps to the warehouse
   println(warehouse.contains(dellXps.code)) // true
 <<<<<<< HEAD
-
+/*
   warehouse.store(dellInspiron) // side effect, add dell inspiron to the warehouse
   warehouse.store(xiaomiMoped) // side effect, add xiaomi moped to the warehouse
   warehouse.searchItems("mobility") // List(xiaomiMoped)
@@ -102,7 +102,7 @@ object Warehouse {
   warehouse.retrieve(dellXps.code) // Some(dellXps)
   warehouse.remove(dellXps) // side effect, remove dell xps from the warehouse
   warehouse.retrieve(dellXps.code) // None
-
+*/
 =======
   println(warehouse.store(dellInspiron)) // side effect, add dell inspiron to the warehouse
   println(warehouse.store(xiaomiMoped)) // side effect, add xiaomi moped to the warehouse
